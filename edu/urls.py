@@ -20,6 +20,5 @@ from message import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('form/', views.get_form)
+    path('form/', views.get_form, name='form_new')
 ]
-

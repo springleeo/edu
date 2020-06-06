@@ -29,11 +29,22 @@ def get_form(request):
     #     message.save()
 
     # 表单删除数据
-    if request.method == 'POST':
-        message = UserMessage.objects.filter(name=request.POST.get('name'))
-        message.delete()
+    # if request.method == 'POST':
+    #     message = UserMessage.objects.filter(name=request.POST.get('name'))
+    #     message.delete()
 
+    # 数据库数据返回前端
+    all_message = UserMessage.objects.filter(name='和平')
+    if all_message:
+        message = all_message[0]
+
+    if request.method == 'POST':
+        if message.name == request.POST.get('name'):
+            message.email = request.POST.get('email')
+            message.address = request.POST.get('address')
+            message.message = request.POST.get('message')
+            message.save()
 
     print()
 
-    return render(request, 'message_form.html')
+    return render(request, 'message_form.html', {'my_message': message})
